@@ -29,9 +29,9 @@ run_app <- function() {
       mainPanel(
         h3("Results for Cities"),
         fluidRow(
-          column(12, h4("City 1"), plotOutput("temperaturePlot1"), verbatimTextOutput("simulationSummary1"), plotOutput("volumeHistogram1"), plotOutput("surfaceAreaHistogram1")),
-          column(12, h4("City 2"), plotOutput("temperaturePlot2"), verbatimTextOutput("simulationSummary2"), plotOutput("volumeHistogram2"), plotOutput("surfaceAreaHistogram2")),
-          column(12, h4("City 3"), plotOutput("temperaturePlot3"), verbatimTextOutput("simulationSummary3"), plotOutput("volumeHistogram3"), plotOutput("surfaceAreaHistogram3"))
+          column(12, h4("City 1"), plotOutput("comparisonPlot1"), verbatimTextOutput("simulationSummary1"), plotOutput("volumeHistogram1"), plotOutput("surfaceAreaHistogram1")),
+          column(12, h4("City 2"), plotOutput("comparisonPlot2"), verbatimTextOutput("simulationSummary2"), plotOutput("volumeHistogram2"), plotOutput("surfaceAreaHistogram2")),
+          column(12, h4("City 3"), plotOutput("comparisonPlot3"), verbatimTextOutput("simulationSummary3"), plotOutput("volumeHistogram3"), plotOutput("surfaceAreaHistogram3"))
         )
       )
     )
@@ -43,72 +43,77 @@ run_app <- function() {
       simulation_counts <- c(input$simulations1, input$simulations2, input$simulations3)
       factors <- c(input$factor1, input$factor2, input$factor3)
 
-      combined_data_list <- list()
-
       for (i in seq_along(cities)) {
-        city <- cities[i]
-        weather_data <- lookup_weather_data(city)
+        local({
+          city <- cities[i]
+          sim_count <- simulation_counts[i]
+          selected_factor <- factors[i]
+          output_suffix <- as.character(i)
 
-        if (!is.null(weather_data)) {
-          combined_data <- data.frame(
-            date = as.POSIXct(weather_data$list$dt, origin = "1970-01-01", tz = "UTC"),
-            temp = weather_data$list$main.temp,
-            humidity = weather_data$list$main.humidity / 100,
-            pressure = weather_data$list$main.pressure,
-            city = weather_data$city$name
-          )
-          combined_data_list[[city]] <- combined_data
+          weather_data <- lookup_weather_data(city)
 
-          output[[paste0("temperaturePlot", i)]] <- renderPlot({
-            ggplot(combined_data, aes(x = date, y = temp)) +
-              geom_line(color = "blue") +
-              labs(
-                title = paste("Temperature Trend for", combined_data$city[1]),
-                x = "Date",
-                y = "Temperature (°C)"
-              ) +
-              theme_minimal()
-          })
+          if (!is.null(weather_data)) {
+            combined_data <- data.frame(
+              date = as.POSIXct(weather_data$list$dt, origin = "1970-01-01", tz = "UTC"),
+              temp = weather_data$list$main.temp,
+              humidity = weather_data$list$main.humidity / 100,
+              pressure = weather_data$list$main.pressure,
+              city = weather_data$city$name
+            )
 
-          output[[paste0("simulationSummary", i)]] <- renderPrint({
-            cat("Weather data summary for", combined_data$city[1], "\n")
-            cat("Temperature Range: ", range(combined_data$temp), "\n")
-            cat("Average Humidity: ", mean(combined_data$humidity) * 100, "%\n")
-          })
-        } else {
-          showNotification(paste("Weather data could not be retrieved for", city), type = "error")
-        }
-      }
+            results <- simulate_party_simple(sim_count, combined_data)
 
-      for (i in seq_along(cities)) {
-        city <- cities[i]
-        combined_data <- combined_data_list[[city]]
+            output[[paste0("comparisonPlot", output_suffix)]] <- renderPlot({
+              factor_label <- switch(selected_factor,
+                                     temp = "Temperature (\u00B0C)",
+                                     humidity = "Humidity (%)",
+                                     pressure = "Pressure (hPa)")
 
-        if (!is.null(combined_data)) {
-          results <- simulate_party_simple(simulation_counts[i], combined_data)
+              ggplot(combined_data, aes(x = date, y = .data[[selected_factor]])) +
+                geom_line(color = "blue") +
+                labs(
+                  title = paste(factor_label, "Trend for", city),
+                  x = "Date",
+                  y = factor_label
+                ) +
+                theme_minimal()
+            })
 
-          output[[paste0("volumeHistogram", i)]] <- renderPlot({
-            ggplot(data.frame(volume = results$total_volume), aes(x = volume)) +
-              geom_histogram(bins = 50, fill = "blue", alpha = 0.6) +
-              labs(
-                title = paste("Volume Distribution for", city),
-                x = "Volume (cm³)",
-                y = "Frequency"
-              ) +
-              theme_minimal()
-          })
+            output[[paste0("simulationSummary", output_suffix)]] <- renderPrint({
+              cat("Results for", city, "\n")
+              cat("Mean Volume (cm³):", round(results$mean_volume, 2), "\n")
+              cat("SD Volume (cm³):", round(results$sd_volume, 2), "\n")
+              cat("99th Percentile Volume (cm³):", round(results$volume_99, 2), "\n")
+              cat("Mean Surface Area (cm²):", round(results$mean_surface_area, 2), "\n")
+              cat("SD Surface Area (cm²):", round(results$sd_surface_area, 2), "\n")
+              cat("99th Percentile Surface Area (cm²):", round(results$surface_area_99, 2), "\n")
+            })
 
-          output[[paste0("surfaceAreaHistogram", i)]] <- renderPlot({
-            ggplot(data.frame(surface_area = results$total_surface_area), aes(x = surface_area)) +
-              geom_histogram(bins = 50, fill = "green", alpha = 0.6) +
-              labs(
-                title = paste("Surface Area Distribution for", city),
-                x = "Surface Area (cm²)",
-                y = "Frequency"
-              ) +
-              theme_minimal()
-          })
-        }
+            output[[paste0("volumeHistogram", output_suffix)]] <- renderPlot({
+              ggplot(data.frame(volume = results$total_volume), aes(x = volume)) +
+                geom_histogram(bins = 50, fill = "blue", alpha = 0.6) +
+                labs(
+                  title = paste("Volume Distribution for", city),
+                  x = "Volume (cm³)",
+                  y = "Frequency"
+                ) +
+                theme_minimal()
+            })
+
+            output[[paste0("surfaceAreaHistogram", output_suffix)]] <- renderPlot({
+              ggplot(data.frame(surface_area = results$total_surface_area), aes(x = surface_area)) +
+                geom_histogram(bins = 50, fill = "green", alpha = 0.6) +
+                labs(
+                  title = paste("Surface Area Distribution for", city),
+                  x = "Surface Area (cm²)",
+                  y = "Frequency"
+                ) +
+                theme_minimal()
+            })
+          } else {
+            showNotification(paste("Weather data could not be retrieved for", city), type = "error")
+          }
+        })
       }
     })
   }
