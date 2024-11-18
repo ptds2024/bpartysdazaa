@@ -9,6 +9,11 @@ lookup_weather_data <- function(city) {
     stop("city must be a string")
   }
 
+  api_key <- Sys.getenv("OWM_API_KEY")
+  if (api_key == "") {
+    stop("API key is missing. Set the 'OWM_API_KEY' environment variable.")
+  }
+
   tryCatch({
     forecast_response <- httr::GET(
       "http://api.openweathermap.org/data/2.5/forecast",
