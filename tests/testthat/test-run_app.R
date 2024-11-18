@@ -1,5 +1,7 @@
+library(shinytest2)
+
 test_that("run_app launches without errors", {
-  expect_silent({
-    shiny::testServer(run_app())
-  })
+  app <- AppDriver$new(run_app, name = "run_app_test", height = 800, width = 1200)
+  expect_true(!is.null(app))
+  app$stop()
 })
