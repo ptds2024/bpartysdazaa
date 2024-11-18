@@ -3,7 +3,7 @@ Type: Package
 Title: Functions for Simulating Ice Cream Party Resources
 Version: 0.1.0
 Author: Sofia Daza
-Maintainer:Sofia Daza <sofia.dazaarandia@unil.ch>
+Maintainer: Sofia Daza <sofia.dazaarandia@unil.ch>
 Description: A package designed to assist in the planning and simulation, 
     of resources for an ice cream party. The package 
     includes functions for calculating cone dimensions, simulating 
@@ -20,4 +20,6 @@ Imports:
     purrr,
     shiny,
     ggplot2
-
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
