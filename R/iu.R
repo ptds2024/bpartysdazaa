@@ -1,6 +1,7 @@
 #' @title UI for the Shiny App
 #' @description User interface definition for the Ice Cream Party Simulation app.
 #' @author Sofia Daza
+#' @import shiny
 #' @export
 ui <- fluidPage(
   titlePanel("Climatic Factors and Ice Cream Party Simulation"),

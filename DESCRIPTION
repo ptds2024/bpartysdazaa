@@ -18,4 +18,5 @@ Imports:
     httr,
     jsonlite,
     purrr
+    shiny
 

@@ -1,6 +1,7 @@
 #' @title Server for the Shiny App
 #' @description Server logic for the Ice Cream Party Simulation app.
 #' @author Sofia Daza
+#' @import shiny
 #' @export
 server <- function(input, output, session) {
   observeEvent(input$simulate, {
