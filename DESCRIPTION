@@ -12,5 +12,5 @@ Description: A package designed to assist in the planning and simulation,
     OpenWeather API to incorporate climatic factors into resource planning.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 RoxygenNote: 7.3.2
