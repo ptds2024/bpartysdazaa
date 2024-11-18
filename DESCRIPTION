@@ -18,5 +18,6 @@ Imports:
     httr,
     jsonlite,
     purrr,
-    shiny
+    shiny,
+    ggplot2
 
