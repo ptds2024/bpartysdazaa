@@ -20,5 +20,4 @@ cone_radius_for(seq(0, 10, length.out = 100))
 }
 \author{
 Sofia Daza
-#' @export
 }
