@@ -1,8 +1,10 @@
-#' @title Cone Radius Non Vectorized Function
-#' @description Functions for calculating the radius of the cone using different approaches.
-#' @param x_values height
-#' @return A radius
-#' @examples 2
+#' @title Cone Radius Non-Vectorized Function
+#' @description Calculates the radius of the cone based on the input height.
+#' @param x A numeric value representing the height.
+#' @return A numeric value representing the radius of the cone.
+#' @examples
+#' cone_radius(5)
+#' cone_radius(-1)
 #' @author Sofia Daza
 #' @export
 cone_radius <- function(x) {
@@ -18,3 +20,4 @@ cone_radius <- function(x) {
     return(0)
   }
 }
+

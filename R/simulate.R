@@ -1,9 +1,12 @@
-#' @title Party Simulation
-#' @description Functions to simulate party resources based on weather forecasts.
-#' @param num_guests Number of guests attending the party.
-#' @return Simulated total cones and guest information.
-#' @author Sofia Daza
+#' @title Simulation Function
+#' @description Simulates some process using `rbinom`.
+#' @param n Number of trials.
+#' @param prob Probability of success.
+#' @return A vector of simulated outcomes.
+#' @examples
+#' simulation(100, 0.5)
+#' @importFrom stats rbinom
 #' @export
-simulation <- function(num_guests) {
-  rbinom(num_guests, size = 1, prob = 0.33) + 1
+simulation <- function(n, prob) {
+  rbinom(n, size = 1, prob = prob)
 }
