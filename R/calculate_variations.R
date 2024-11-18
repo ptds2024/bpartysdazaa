@@ -6,8 +6,8 @@
 #' @author Sofia Daza
 #' @export
 calculate_variations <- function(base_value, variation_percent) {
-  list(
-    lower = base_value * (1 - variation_percent / 100),
-    upper = base_value * (1 + variation_percent / 100)
-  )
+  if (base_value < 0) stop("base_value must be non-negative")
+  lower <- base_value * (1 - variation_percent / 100)
+  upper <- base_value * (1 + variation_percent / 100)
+  return(list(lower = lower, upper = upper))
 }

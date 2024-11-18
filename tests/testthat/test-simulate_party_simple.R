@@ -19,6 +19,5 @@ test_that("simulate_party_simple works", {
   expect_type(results$total_surface_area, "double")
 
   expect_error(simulate_party_simple(-100, combined_data), "num_simulations must be positive")
-
   expect_error(simulate_party_simple(100, data.frame()), "combined_data cannot be empty")
 })

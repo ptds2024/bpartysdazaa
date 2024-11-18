@@ -9,13 +9,16 @@
 #' @author Sofia Daza
 #' @export
 simulate_party_simple <- function(num_simulations, combined_data, volume_base = 39.88, surface_base = 52.71, variation_percent = 10) {
+  if (num_simulations <= 0) stop("num_simulations must be positive")
+  if (nrow(combined_data) == 0) stop("combined_data cannot be empty")
+
   total_volumes <- numeric(num_simulations)
   total_surface_areas <- numeric(num_simulations)
 
   volume_variation <- calculate_variations(volume_base, variation_percent)
   surface_area_variation <- calculate_variations(surface_base, variation_percent)
 
-  for (sim in seq_len(num_simulations)) {
+  for (sim in 1:num_simulations) {
     forecast_sample <- combined_data[sample(nrow(combined_data), 1), ]
     lambda <- exp(0.5 + 0.5 * forecast_sample$temp - 3 * forecast_sample$humidity + 0.001 * forecast_sample$pressure)
     guests <- rpois(1, lambda)
@@ -28,7 +31,7 @@ simulate_party_simple <- function(num_simulations, combined_data, volume_base = 
     total_surface_areas[sim] <- sum(surface_area_per_cone)
   }
 
-  list(
+  return(list(
     mean_volume = mean(total_volumes),
     sd_volume = sd(total_volumes),
     volume_99 = quantile(total_volumes, 0.99),
@@ -37,5 +40,6 @@ simulate_party_simple <- function(num_simulations, combined_data, volume_base = 
     surface_area_99 = quantile(total_surface_areas, 0.99),
     total_volume = total_volumes,
     total_surface_area = total_surface_areas
-  )
+  ))
 }
+
