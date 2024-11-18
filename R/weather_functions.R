@@ -26,8 +26,7 @@ lookup_weather_data <- function(city) {
       stop(paste("Failed to retrieve weather data for", city, "- Status code:", httr::status_code(forecast_response)))
     }
   }, error = function(e) {
-    message("Error: ", e$message)
-    return(NULL)
+    stop(paste("Error: ", e$message))
   })
 }
 
