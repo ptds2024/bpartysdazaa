@@ -4,7 +4,7 @@
 #' @return A numeric vector of radii.
 #' @examples cone_radius_for(seq(0, 10, length.out = 100))
 #' @author Sofia Daza
-#' #' @export
+#' @export
 cone_radius_ifelse <- function(x_values) {
   result <- ifelse(
     x_values < 0, 0,

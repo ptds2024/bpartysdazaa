@@ -4,7 +4,7 @@
 #' @return A radius
 #' @examples 2
 #' @author Sofia Daza
-
+#' @export
 cone_radius <- function(x) {
   if (x < 0) {
     return(0)

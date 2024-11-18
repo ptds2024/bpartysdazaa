@@ -4,6 +4,7 @@
 #' @return A list containing current and forecast weather data.
 #' @examples lookup_weather_data("Lausanne")
 #' @author Sofia Daza
+#' @export
 lookup_weather_data <- function(city) {
   tryCatch({
     forecast_response <- httr::GET(

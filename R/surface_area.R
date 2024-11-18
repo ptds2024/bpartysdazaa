@@ -3,7 +3,7 @@
 #' @return The calculated volume or surface area.
 #' @examples volume()
 #' @author Sofia Daza
-
+#' @export
 derivative <- function(x, epsilon = 1e-5) {
   (cone_radius_ifelse(x + epsilon) - cone_radius_ifelse(x)) / epsilon
 }
