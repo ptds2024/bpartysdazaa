@@ -2,21 +2,18 @@
 % Please edit documentation in R/weather_functions.R
 \name{lookup_weather_data}
 \alias{lookup_weather_data}
-\title{Weather Data Retrieval}
+\title{Lookup Weather Data}
 \usage{
 lookup_weather_data(city)
 }
 \arguments{
-\item{city}{A character string for the city name.}
+\item{city}{A string representing the name of the city.}
 }
 \value{
-A list containing current and forecast weather data.
+A list containing the weather data or `NULL` if the request fails.
 }
 \description{
-Functions to retrieve and process weather data using the OpenWeather API.
-}
-\examples{
-lookup_weather_data("Lausanne")
+Retrieves weather forecast data for a given city from the OpenWeatherMap API.
 }
 \author{
 Sofia Daza

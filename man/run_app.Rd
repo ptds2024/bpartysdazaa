@@ -7,7 +7,7 @@
 run_app()
 }
 \description{
-Launches the Ice Cream Party Simulation Shiny app.
+Launches the Shiny app for climatic factors and ice cream party simulation.
 }
 \author{
 Sofia Daza
