@@ -2,21 +2,22 @@
 % Please edit documentation in R/vectorize_function.R
 \name{cone_radius_vectorize}
 \alias{cone_radius_vectorize}
-\title{Cone Radius Function Vectorize}
+\title{Cone Radius Vectorized Function}
 \usage{
 cone_radius_vectorize(x)
 }
 \arguments{
-\item{x_values}{Numeric vector of heights.}
+\item{x}{Numeric vector of heights.}
 }
 \value{
 A numeric vector of radii.
 }
 \description{
-Functions for calculating the radius of the cone using different approaches.
+Vectorized version of the `cone_radius` function for handling numeric vectors.
 }
 \examples{
-cone_radius_for(seq(0, 10, length.out = 100))
+cone_radius_vectorize(seq(0, 10, length.out = 5))
+cone_radius_vectorize(c(-1, 0, 5, 8, 10))
 }
 \author{
 Sofia Daza

@@ -2,19 +2,21 @@
 % Please edit documentation in R/simulate.R
 \name{simulation}
 \alias{simulation}
-\title{Party Simulation}
+\title{Simulation Function}
 \usage{
-simulation(num_guests)
+simulation(n, prob)
 }
 \arguments{
-\item{num_guests}{Number of guests attending the party.}
+\item{n}{Number of trials.}
+
+\item{prob}{Probability of success.}
 }
 \value{
-Simulated total cones and guest information.
+A vector of simulated outcomes.
 }
 \description{
-Functions to simulate party resources based on weather forecasts.
+Simulates some process using `rbinom`.
 }
-\author{
-Sofia Daza
+\examples{
+simulation(100, 0.5)
 }
