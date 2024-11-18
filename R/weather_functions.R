@@ -7,19 +7,20 @@
 #' @export
 lookup_weather_data <- function(city) {
   tryCatch({
-    forecast_response <- httr::GET(
+    response <- httr::GET(
       "http://api.openweathermap.org/data/2.5/forecast",
       query = list(q = city, appid = Sys.getenv("OWM_API_KEY"), units = "metric")
     )
 
-    if (httr::status_code(forecast_response) == 200) {
-      forecast <- jsonlite::fromJSON(httr::content(forecast_response, "text"), flatten = TRUE)
+    if (httr::status_code(response) == 200) {
+      forecast <- jsonlite::fromJSON(httr::content(response, "text"), flatten = TRUE)
       return(forecast)
     } else {
-      stop("Failed to retrieve weather data")
+      stop(paste("Failed to retrieve weather data for", city, "- Status code:", httr::status_code(response)))
     }
   }, error = function(e) {
-    message("Error: ", e$message)
+    message("Error fetching weather data for ", city, ": ", e$message)
     return(NULL)
   })
 }
+
