@@ -5,7 +5,10 @@
 #' @author Sofia Daza
 #' @export
 lookup_weather_data <- function(city) {
-  api_key <- Sys.getenv("OWM_API_KEY")
+  if (!is.character(city)) {
+    stop("city must be a string")
+  }
+
   tryCatch({
     forecast_response <- httr::GET(
       "http://api.openweathermap.org/data/2.5/forecast",
@@ -13,12 +16,17 @@ lookup_weather_data <- function(city) {
     )
 
     if (httr::status_code(forecast_response) == 200) {
-      jsonlite::fromJSON(httr::content(forecast_response, "text"), flatten = TRUE)
+      forecast <- jsonlite::fromJSON(httr::content(forecast_response, "text"), flatten = TRUE)
+      return(list(
+        cod = forecast$cod,
+        list = forecast$list,
+        city = forecast$city
+      ))
     } else {
       stop(paste("Failed to retrieve weather data for", city, "- Status code:", httr::status_code(forecast_response)))
     }
   }, error = function(e) {
-    message("Error fetching weather data for ", city, ": ", e$message)
+    message("Error: ", e$message)
     return(NULL)
   })
 }
