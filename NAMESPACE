@@ -18,6 +18,3 @@ import(ggplot2)
 import(shiny)
 importFrom(stats,integrate)
 importFrom(stats,rbinom)
-#' @importFrom ggplot2 ggplot aes geom_histogram geom_line labs theme_minimal
-#' @importFrom stats quantile rpois runif sd
-
