@@ -21,5 +21,8 @@ Imports:
     shiny,
     ggplot2,
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    shinytest2,
+    httptest2
+
 Config/testthat/edition: 3
