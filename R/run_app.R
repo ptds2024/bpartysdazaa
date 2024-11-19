@@ -2,6 +2,7 @@
 #' @description Launches the Shiny app for climatic factors and ice cream party simulation.
 #' @import shiny
 #' @author Sofia Daza
+utils::globalVariables(".data")
 #' @export
 run_app <- function() {
   library(shiny)
@@ -14,15 +15,15 @@ run_app <- function() {
         h3("City Configurations"),
         textInput("city1", "City 1", value = "Lausanne"),
         numericInput("simulations1", "Simulations for City 1", value = 10000, min = 100),
-        selectInput("factor1", "Weather Factor for City 1", choices = c("Temperature (\u00B0C)" = "temp", "Humidity (%)" = "humidity", "Pressure (hPa)" = "pressure")),
+        selectInput("factor1", "Weather Factor for City 1", choices = c("Temperature (Degrees)" = "temp", "Humidity (%)" = "humidity", "Pressure (hPa)" = "pressure")),
 
         textInput("city2", "City 2", value = "Geneva"),
         numericInput("simulations2", "Simulations for City 2", value = 10000, min = 100),
-        selectInput("factor2", "Weather Factor for City 2", choices = c("Temperature (\u00B0C)" = "temp", "Humidity (%)" = "humidity", "Pressure (hPa)" = "pressure")),
+        selectInput("factor2", "Weather Factor for City 2", choices = c("Temperature (Degrees)" = "temp", "Humidity (%)" = "humidity", "Pressure (hPa)" = "pressure")),
 
         textInput("city3", "City 3", value = "Zurich"),
         numericInput("simulations3", "Simulations for City 3", value = 10000, min = 100),
-        selectInput("factor3", "Weather Factor for City 3", choices = c("Temperature (\u00B0C)" = "temp", "Humidity (%)" = "humidity", "Pressure (hPa)" = "pressure")),
+        selectInput("factor3", "Weather Factor for City 3", choices = c("Temperature (Degrees)" = "temp", "Humidity (%)" = "humidity", "Pressure (hPa)" = "pressure")),
 
         actionButton("simulate", "Run Simulation")
       ),
@@ -65,7 +66,7 @@ run_app <- function() {
 
             output[[paste0("comparisonPlot", output_suffix)]] <- renderPlot({
               factor_label <- switch(selected_factor,
-                                     temp = "Temperature (\u00B0C)",
+                                     temp = "Temperature (Degrees)",
                                      humidity = "Humidity (%)",
                                      pressure = "Pressure (hPa)")
 
@@ -81,12 +82,12 @@ run_app <- function() {
 
             output[[paste0("simulationSummary", output_suffix)]] <- renderPrint({
               cat("Results for", city, "\n")
-              cat("Mean Volume (cm³):", round(results$mean_volume, 2), "\n")
-              cat("SD Volume (cm³):", round(results$sd_volume, 2), "\n")
-              cat("99th Percentile Volume (cm³):", round(results$volume_99, 2), "\n")
-              cat("Mean Surface Area (cm²):", round(results$mean_surface_area, 2), "\n")
-              cat("SD Surface Area (cm²):", round(results$sd_surface_area, 2), "\n")
-              cat("99th Percentile Surface Area (cm²):", round(results$surface_area_99, 2), "\n")
+              cat("Mean Volume (cm3):", round(results$mean_volume, 2), "\n")
+              cat("SD Volume (cm3):", round(results$sd_volume, 2), "\n")
+              cat("99th Percentile Volume (cm3):", round(results$volume_99, 2), "\n")
+              cat("Mean Surface Area (cm2):", round(results$mean_surface_area, 2), "\n")
+              cat("SD Surface Area (cm2):", round(results$sd_surface_area, 2), "\n")
+              cat("99th Percentile Surface Area (cm2):", round(results$surface_area_99, 2), "\n")
             })
 
             output[[paste0("volumeHistogram", output_suffix)]] <- renderPlot({
@@ -94,7 +95,7 @@ run_app <- function() {
                 geom_histogram(bins = 50, fill = "blue", alpha = 0.6) +
                 labs(
                   title = paste("Volume Distribution for", city),
-                  x = "Volume (cm³)",
+                  x = "Volume (cm3)",
                   y = "Frequency"
                 ) +
                 theme_minimal()
@@ -105,7 +106,7 @@ run_app <- function() {
                 geom_histogram(bins = 50, fill = "green", alpha = 0.6) +
                 labs(
                   title = paste("Surface Area Distribution for", city),
-                  x = "Surface Area (cm²)",
+                  x = "Surface Area (cm2)",
                   y = "Frequency"
                 ) +
                 theme_minimal()

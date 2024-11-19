@@ -17,3 +17,6 @@ export(volume)
 import(shiny)
 importFrom(stats,integrate)
 importFrom(stats,rbinom)
+importFrom(stats, quantile, rpois, runif, sd)
+importFrom(ggplot2, ggplot, aes, geom_histogram, geom_line, labs, theme_minimal)
+

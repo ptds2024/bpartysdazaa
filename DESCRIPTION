@@ -10,7 +10,7 @@ Description: A package designed to assist in the planning and simulation,
     weather-based guest attendance, and estimating the amount of ice cream required 
     to meet demand under various scenarios. It retrieves weather forecasts from the 
     OpenWeather API to incorporate climatic factors into resource planning.
-License: MIT + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: false
 RoxygenNote: 7.3.2
@@ -19,7 +19,9 @@ Imports:
     jsonlite,
     purrr,
     shiny,
-    ggplot2
+    ggplot2,
+    httptest2,
+    shinytest2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
