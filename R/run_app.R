@@ -1,10 +1,10 @@
+utils::globalVariables(".data")
 #' @name run_app
 #' @title Run Shiny App
 #' @description Launches the Shiny app for climatic factors and ice cream party simulation.
 #' @import shiny
 #' @import ggplot2
 #' @author Sofia Daza
-utils::globalVariables(".data")
 #' @export
 run_app <- function() {
   ggplot2::ggplot()
