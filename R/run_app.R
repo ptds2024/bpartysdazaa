@@ -1,12 +1,14 @@
+#' @name run_app
 #' @title Run Shiny App
 #' @description Launches the Shiny app for climatic factors and ice cream party simulation.
 #' @import shiny
+#' @import ggplot2
 #' @author Sofia Daza
 utils::globalVariables(".data")
 #' @export
 run_app <- function() {
-  library(shiny)
-  library(ggplot2)
+  ggplot2::ggplot()
+  shiny::fluidPage()
 
   ui <- fluidPage(
     titlePanel("Climatic Factors and Ice Cream Party Simulation"),
