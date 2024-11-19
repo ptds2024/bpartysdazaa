@@ -16,8 +16,7 @@ test_that("lookup_weather_data works", {
     capture_requests({
       expect_error(
         lookup_weather_data("InvalidCity"),
-        "Failed to retrieve weather data",
-        regexp = TRUE
+        regexp = "Failed to retrieve weather data"
       )
     })
   })
