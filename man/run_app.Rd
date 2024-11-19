@@ -3,6 +3,9 @@
 \name{run_app}
 \alias{run_app}
 \title{Run Shiny App}
+\usage{
+run_app()
+}
 \description{
 Launches the Shiny app for climatic factors and ice cream party simulation.
 }
