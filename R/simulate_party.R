@@ -7,6 +7,7 @@
 #' @param variation_percent Percentage variation for volume and surface area (default: 10).
 #' @return A list of simulation results, including total and mean volumes and surface areas.
 #' @author Sofia Daza
+#' @importFrom stats quantile rpois runif sd
 #' @export
 simulate_party_simple <- function(num_simulations, combined_data, volume_base = 39.88, surface_base = 52.71, variation_percent = 10) {
   if (num_simulations <= 0) stop("num_simulations must be positive")

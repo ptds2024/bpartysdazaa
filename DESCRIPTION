@@ -20,8 +20,6 @@ Imports:
     purrr,
     shiny,
     ggplot2,
-    httptest2,
-    shinytest2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
