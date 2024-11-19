@@ -1,0 +1,21 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/calculate_variations.html</loc></url>
+<url><loc>/reference/cone_radius.html</loc></url>
+<url><loc>/reference/cone_radius_for.html</loc></url>
+<url><loc>/reference/cone_radius_ifelse.html</loc></url>
+<url><loc>/reference/cone_radius_map.html</loc></url>
+<url><loc>/reference/cone_radius_sapply.html</loc></url>
+<url><loc>/reference/cone_radius_vectorize.html</loc></url>
+<url><loc>/reference/derivative.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/lookup_weather_data.html</loc></url>
+<url><loc>/reference/run_app.html</loc></url>
+<url><loc>/reference/simulate_party_simple.html</loc></url>
+<url><loc>/reference/simulation.html</loc></url>
+<url><loc>/reference/surface_area.html</loc></url>
+<url><loc>/reference/volume.html</loc></url>
+</urlset>
+
